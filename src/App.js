@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './logo.png';
 import './App.css';
 
 class App extends Component {
@@ -8,11 +8,12 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Bienvenue sur Puissance 4</h1>
+        <div className="TheButttons">
+          <button className="ButtonSolo" type="button"><a href="https://lululataupe.com/tout-age/686-puissance-4">1V1</a></button>
+          <button className="ButtonMulti" type="button"><a href="https://lululataupe.com/tout-age/686-puissance-4">Multiplayer</a></button>
+        </div>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
       </div>
     );
   }
