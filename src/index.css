@@ -121,6 +121,11 @@ body {
     background: yellow;
 }
 
+.blue:after {
+    content: '';
+    background: blue;
+}
+
 .players {
     display: flex;
     flex-direction: column;
@@ -166,16 +171,16 @@ body {
     height: 100%;
 }
 
-.players li:hover .timer:before {
-    animation: timerPlaceholder 4s infinite linear;
-
+.players li.active .timer:before {
+    animation: timerPlaceholder 10s linear;
+    animation-fill-mode: forwards;
 }
 
 .players li ~ li {
     margin-top: -1px;
 }
 
-.players li:hover {
+.players li.active {
     transform: scale(1.05, 1.05);
     transition: transform .3s ease-out;
     box-shadow: 0 0 4px 4px orange;
