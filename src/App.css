@@ -73,6 +73,7 @@ button:hover a {
 
 
 .TheButttons {
+  margin-top: 5em;
   display: flex;
   justify-content: center;
 }
@@ -83,6 +84,9 @@ button:hover a {
   right: 1em;
   font-size: 3em;
   top: 1em;
+  z-index: 9999;
+  color: white;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
