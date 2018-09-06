@@ -1,5 +1,6 @@
-import Board from './Board';
 import React, { Component } from 'react';
+import Board from './Board';
+import PlayerList from './PlayerList';
 
 class Game extends Component {
     state = {
@@ -33,13 +34,25 @@ class Game extends Component {
         const { board } = this.state;
 
         return (
-            <Board>
-                {
-                    board.map((row, i) => (
-                        <Board.Column key={i} onClick={() => this.handleColumnClick(i)} rows={row} />
-                    ))
-                }
-            </Board>
+            <div className="game">
+                <Board>
+                    {
+                        board.map((row, i) => (
+                            <Board.Column key={i} onClick={() => this.handleColumnClick(i)} rows={row} />
+                        ))
+                    }
+                </Board>
+                <PlayerList players={[
+                    {
+                        name: 'Alex',
+                        color: 'red',
+                    },
+                    {
+                        name: 'Test',
+                        color: 'blue',
+                    },
+                ]} />
+            </div>
         );
     }
 }
