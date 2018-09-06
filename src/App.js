@@ -8,11 +8,21 @@ class App extends Component {
   componentWillMount() {
     this.audio = new Audio();
     this.audio.src = '/Free.mp3';
-    this.audio.play();
+    this.audio.autoplay = true;
   }
 
   render() {
     return (
+      <div>
+      <div className="SpeakerOn">
+        <i
+          onClick={() => {
+            console.log('johann');
+            this.audio.paused ? this.audio.play() : this.audio.pause();
+            this.forceUpdate();
+          }}
+          className={'fa ' + (this.audio.paused ? 'fa-volume-off' : 'fa-volume-up')} />
+      </div>
         <Switch>
             <Route path="/" exact render={() => (
                 <div className="App">
@@ -36,6 +46,7 @@ class App extends Component {
             )} />
             <Route path="/game" exact component={Game} />
       </Switch>
+      </div>
     );
   }
 }

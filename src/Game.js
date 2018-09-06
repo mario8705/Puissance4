@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Board from './Board';
 import PlayerList from './PlayerList';
+import logo from './logo.png';
 
 const MAX_COLS = 7;
 const MAX_ROWS = 6;
@@ -87,6 +88,8 @@ class Game extends Component {
         const { board, active } = this.state;
 
         return (
+          <div className="GAME">
+            <h1 className="title2">Puissance 4</h1>
             <div className="game">
                 <Board>
                     {
@@ -95,8 +98,11 @@ class Game extends Component {
                         ))
                     }
                 </Board>
-                <PlayerList players={players} active={active} />
+                  <img src={logo} className="LOGO" alt="logo" />
+                  <img src={logo} className="LOGO2" alt="logo" />
+                  <PlayerList players={players} active={active} />
             </div>
+          </div>
         );
     }
 

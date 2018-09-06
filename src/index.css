@@ -14,25 +14,58 @@ ul, ol {
 body {
     font-family: Roboto, sans-serif;
     font-weight: 400;
+    background-color: #222;
     font-size: 14px;
+}
+
+.title2 , h1 {
+  font-size: 3.5em;
+  font-family: 'Oswald', sans-serif;
+  color: white;
+  text-align: center;
+  transform: translateY(70%);
 }
 
 .game {
     display: flex;
-    margin: 1em;
+    margin: 15em auto;
 }
 
 .game > .players {
+  transform: translateX(-0.5%);
     flex: 1;
+    position: absolute;
+    right: 0em;
+    left: 0;
+    bottom: 0;
     margin-left: 1em;
 }
 
 .board {
     background: #044389;
+    transform: translateX(110%);
     border-radius: 5px;
     border: 1px solid black;
     display: inline-block;
     padding: 1em;
+}
+
+.LOGO , img {
+  height: 35vh;
+  position: absolute;
+  top: 40%;
+  right: 0;
+  margin-right: 5em;
+  animation: App-logo-spin infinite 15s linear;
+}
+
+.LOGO2  {
+  height: 35vh;
+  position: absolute;
+  top: 40%;
+  left: 0;
+  margin-left: 5em;
+  animation: App-logo-spin infinite 15s linear;
 }
 
 .board .column ~ .column {
@@ -82,7 +115,7 @@ body {
     transform: translateX(-50%);
     top: -80px;
     font-size: 3.5em;
-    color: black;
+    color: white;
 }
 
 @keyframes popIn {
@@ -155,6 +188,14 @@ body {
 @keyframes timerPlaceholder {
     from { width: 0; background: blue; }
     to { width: 100%; background: red;  }
+}
+
+.fa.fa-volume-up,
+.fa.fa-volume-off {
+ position: absolute;
+ right: 1em;
+ font-size: 3em;
+ top: 1em;
 }
 
 .players li .timer {
