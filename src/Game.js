@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Board from './Board';
 import PlayerList from './PlayerList';
+import logo from './logo.png';
 
 class Game extends Component {
     state = {
@@ -34,6 +35,8 @@ class Game extends Component {
         const { board } = this.state;
 
         return (
+          <div className="GAME">
+            <h1 className="title2">Puissance 4</h1>
             <div className="game">
                 <Board>
                     {
@@ -42,6 +45,8 @@ class Game extends Component {
                         ))
                     }
                 </Board>
+                  <img src={logo} className="LOGO" alt="logo" />
+                  <img src={logo} className="LOGO2" alt="logo" />
                 <PlayerList players={[
                     {
                         name: 'Alex',
@@ -53,6 +58,7 @@ class Game extends Component {
                     },
                 ]} />
             </div>
+          </div>
         );
     }
 }
