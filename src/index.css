@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500');
+
 *, :before, :after {
     margin: 0;
     padding: 0;
@@ -9,9 +11,23 @@ ul, ol {
     list-style-type: none;
 }
 
-.board {
-    margin: 3em;
+body {
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
 
+.game {
+    display: flex;
+    margin: 1em;
+}
+
+.game > .players {
+    flex: 1;
+    margin-left: 1em;
+}
+
+.board {
     background: #044389;
     border-radius: 5px;
     border: 1px solid black;
@@ -103,4 +119,64 @@ ul, ol {
 .yellow:after {
     content: '';
     background: yellow;
+}
+
+.players {
+    display: flex;
+    flex-direction: column;
+}
+
+.players li {
+    padding: 1em;
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.players li h2 {
+    display: inline-block;
+    font-weight: 300;
+}
+
+.players li span {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border: 2px solid black;
+    margin-right: .5em;
+}
+
+@keyframes timerPlaceholder {
+    from { width: 0; background: blue; }
+    to { width: 100%; background: red;  }
+}
+
+.players li .timer {
+    margin-left: auto;
+    width: 80%;
+    height: 15px;
+    background: #aaa;
+}
+
+.players li .timer:before {
+    content: '';
+    width: var(--time);
+    display: block;
+    height: 100%;
+}
+
+.players li:hover .timer:before {
+    animation: timerPlaceholder 4s infinite linear;
+
+}
+
+.players li ~ li {
+    margin-top: -1px;
+}
+
+.players li:hover {
+    transform: scale(1.05, 1.05);
+    transition: transform .3s ease-out;
+    box-shadow: 0 0 4px 4px orange;
 }
