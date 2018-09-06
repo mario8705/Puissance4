@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-music-player": "^1.0.3",
+    "react-native": "^0.56.0",
+    "react-native-background-audio": "^1.1.4",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5"
   },

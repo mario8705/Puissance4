@@ -1,3 +1,5 @@
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
 .App {
   text-align: center;
 }
@@ -9,33 +11,38 @@
 
 .App-header {
   background-color: #222;
-  height: 95.5vh;
+  height: 100vh;
   padding: 20px;
   color: white;
 }
 
 .App-title {
   font-size: 3.5em;
+  font-family: 'Oswald', sans-serif;
 }
 
 .App-intro {
   font-size: large;
 }
 
-.ButtonSolo , a {
+.ButtonSolo:not(a) {
+  background: radial-gradient( ellipse at top left, red, green);
+  margin: 0 3em;
+  margin-top: 5vh;
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 1px 1px 5px 2px black;
   height: 6vh;
   width: 4vw;
-  text-decoration: none;
-  color: rgb(235, 52, 38);
-  font-family: 'Oswald', sans-serif;
 }
 
 .ButtonMulti:not(a) {
+  background: radial-gradient( ellipse at top left, red, green);
+  margin: 0 3em;
+  margin-top: 5vh;
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 1px 1px 5px 2px black;
   height: 6vh;
   width: 6vw;
-  font-family: 'Oswald', sans-serif;
-  text-decoration: none;
-  color: rgb(235, 52, 38);
 }
 
 .ButtonMulti:not(a):hover {
@@ -46,6 +53,20 @@
   background: rgb(235, 52, 38);
 }
 
+.ButtonSolo , a {
+  font-size: 1em;
+  color: rgb(235, 52, 38);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+}
+
+.ButtonMulti , a {
+  font-size: 1em;
+  color: rgb(235, 52, 38);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+}
+
 button:hover a {
   color: black;
 }
@@ -54,6 +75,14 @@ button:hover a {
 .TheButttons {
   display: flex;
   justify-content: center;
+}
+
+ .fa.fa-volume-up,
+ .fa.fa-volume-off {
+  position: absolute;
+  right: 1em;
+  font-size: 3em;
+  top: 1em;
 }
 
 @keyframes App-logo-spin {

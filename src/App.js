@@ -5,6 +5,12 @@ import logo from './logo.png';
 import './App.css';
 
 class App extends Component {
+  componentWillMount() {
+    this.audio = new Audio();
+    this.audio.src = '/Free.mp3';
+    this.audio.play();
+  }
+
   render() {
     return (
         <Switch>
@@ -14,8 +20,16 @@ class App extends Component {
                         <img src={logo} className="App-logo" alt="logo" />
                         <h1 className="App-title">Bienvenue sur Puissance 4</h1>
                         <div className="TheButttons">
-                            <button className="ButtonSolo" type="button"><a href="https://lululataupe.com/tout-age/686-puissance-4">1V1</a></button>
-                            <button className="ButtonMulti" type="button"><a href="https://lululataupe.com/tout-age/686-puissance-4">Multiplayer</a></button>
+                            <button className="ButtonSolo" type="button"><a href="/game">1V1</a></button>
+                            <button className="ButtonMulti" type="button"><a href="/game">Multiplayer</a></button>
+                        </div>
+                        <div className="SpeakerOn">
+                          <i
+                            onClick={() => {
+                              this.audio.paused ? this.audio.play() : this.audio.pause()
+                              this.forceUpdate()
+                            }}
+                            className={'fa ' + (this.audio.paused ? 'fa-volume-off' : 'fa-volume-up')} />
                         </div>
                     </header>
                 </div>
