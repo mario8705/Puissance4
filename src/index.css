@@ -31,16 +31,6 @@ body {
     margin: 15em auto;
 }
 
-.game > .players {
-  transform: translateX(-0.5%);
-    flex: 1;
-    position: absolute;
-    right: 0em;
-    left: 0;
-    bottom: 0;
-    margin-left: 1em;
-}
-
 .board {
     background: #044389;
     transform: translateX(110%);
@@ -162,6 +152,11 @@ body {
 .players {
     display: flex;
     flex-direction: column;
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin: 2em;
 }
 
 .players li {
@@ -222,7 +217,7 @@ body {
 }
 
 .players li.active {
-    transform: scale(1.05, 1.05);
+    transform: scale(1.025, 1.025);
     transition: transform .3s ease-out;
     box-shadow: 0 0 4px 4px orange;
 }
