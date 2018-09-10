@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Board from './Board';
+import Gameover from './Gameover';
 import PlayerList from './PlayerList';
 import logo from './logo.png';
 
@@ -15,7 +16,6 @@ class Game extends Component {
                 color: PropTypes.string,
             })
         ).isRequired,
-        onWin: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
@@ -29,7 +29,19 @@ class Game extends Component {
                 color: 'yellow',
             },
         ],
-        onWin: p => setTimeout(() => alert(p + ' has won'), 30)
+    }
+
+    newGame() {
+        this.setState(({ board: oldBoard }) => {
+            const board = oldBoard.map(r =>
+                r.map(() => ''));
+
+            return {
+                board,
+                active: 0,
+                gameover: false,
+            };
+        });
     }
 
     state = {
@@ -43,6 +55,16 @@ class Game extends Component {
             [ '', '', '', '', '', ''],
         ],
         active: 0,
+        gameover: false,
+        winner: ''
+    }
+
+    setGameover(winner) {
+        this.setState({
+            gameover: true,
+            winner,
+        });
+        clearTimeout(this.turnTimeout);
     }
 
     componentWillMount() {
@@ -58,11 +80,15 @@ class Game extends Component {
     }
 
     handleColumnClick = (col) => {
-        let i;
         const { players } = this.props;
         // TODO clone board ?
-        const { board, active } = this.state;
+        const { board, active, gameover } = this.state;
         const cls = players[active].color;
+        let i;
+
+        if (gameover) {
+            return;
+        }
 
         for (i = board[col].length - 1; i >= 0; --i) {
             if (!board[col][i]) {
@@ -85,22 +111,47 @@ class Game extends Component {
 
     render() {
         const { players } = this.props;
-        const { board, active } = this.state;
+        const { board, active, gameover, winner } = this.state;
 
         return (
           <div className="GAME">
+          {
+              gameover && (
+                  <Gameover text={`Victoire du joueur ${winner} !`} onClick={() => this.newGame()} />
+              )
+          }
+          <div className="resume" style={{display:'none'}}>
+            <table>
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td>Name</td>
+                        <td>Victoires</td>
+                        <td>Défaites</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jack</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
             <h1 className="title2">Puissance 4</h1>
             <div className="game">
-                <Board>
-                    {
-                        board.map((row, i) => (
-                            <Board.Column key={i} onClick={() => this.handleColumnClick(i)} rows={row} />
-                        ))
-                    }
-                </Board>
-                  <img src={logo} className="LOGO" alt="logo" />
-                  <img src={logo} className="LOGO2" alt="logo" />
-                  <PlayerList players={players} active={active} />
+                <div className="board-wrapper">
+                    <img src={logo} alt="" />
+                    <Board>
+                        {
+                            board.map((row, i) => (
+                                <Board.Column key={i} onClick={() => this.handleColumnClick(i)} rows={row} />
+                            ))
+                        }
+                    </Board>
+                    <img src={logo} alt="logo" />
+                </div>
+                <PlayerList players={players} active={gameover ? null : active} />
             </div>
           </div>
         );
@@ -114,7 +165,7 @@ class Game extends Component {
             for (row = 0; row < MAX_ROWS; ++row) {
                 if (cls = board[col][row]) {
                     if (this.checkWinCls(cls, col, row)) {
-                        this.props.onWin(cls);
+                        this.setGameover(cls);
                         return;
                     }
                 }

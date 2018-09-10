@@ -18,44 +18,32 @@ body {
     font-size: 14px;
 }
 
-.title2 , h1 {
+.title2, h1 {
   font-size: 3.5em;
   font-family: 'Oswald', sans-serif;
   color: white;
   text-align: center;
-  transform: translateY(70%);
+  margin-bottom: 1em;
 }
 
-.game {
+.board-wrapper {
     display: flex;
-    margin: 15em auto;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.board-wrapper img {
+    height: 400px;
+    width: auto;
+    animation: App-logo-spin infinite 15s linear;
 }
 
 .board {
     background: #044389;
-    transform: translateX(110%);
     border-radius: 5px;
     border: 1px solid black;
     display: inline-block;
     padding: 1em;
-}
-
-.LOGO , img {
-  height: 35vh;
-  position: absolute;
-  top: 40%;
-  right: 0;
-  margin-right: 5em;
-  animation: App-logo-spin infinite 15s linear;
-}
-
-.LOGO2  {
-  height: 35vh;
-  position: absolute;
-  top: 40%;
-  left: 0;
-  margin-left: 5em;
-  animation: App-logo-spin infinite 15s linear;
 }
 
 .board .column ~ .column {
@@ -74,8 +62,8 @@ body {
 
 .column span {
     display: inline-block;
-    width: 50px;
-    height: 50px;
+    width: 4em;
+    height: 4em;
     border-radius: 50%;
     border: 1px solid black;
     background: white;
@@ -187,10 +175,10 @@ body {
 
 .fa.fa-volume-up,
 .fa.fa-volume-off {
- position: absolute;
- right: 1em;
- font-size: 3em;
- top: 1em;
+    position: absolute;
+    right: 1em;
+    font-size: 3em;
+    top: 1em;
 }
 
 .players li .timer {
@@ -219,5 +207,58 @@ body {
 .players li.active {
     transform: scale(1.025, 1.025);
     transition: transform .3s ease-out;
-    box-shadow: 0 0 4px 4px orange;
+    box-shadow: 0 0 6px 4px orange;
+}
+
+.gameover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: orange;
+    border: 2px solid black;
+    z-index: 9999;
+    padding: 2em 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.gameover h2 {
+    color: white;
+    font-size: 2em;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    margin-bottom: .5em;
+}
+
+.gameover button {
+    margin: 0 auto;
+    background: #336699;
+    padding: .5em 2em;
+    font-size: 1.5em;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-bottom: 5px solid #114477;
+}
+
+.gameover button:active {
+    border-top: 3px solid transparent;
+    border-bottom-width: 2px;
+}
+
+.resume {
+
+}
+
+.resume:before {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
 }
