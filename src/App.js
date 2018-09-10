@@ -17,7 +17,6 @@ class App extends Component {
       <div className="SpeakerOn">
         <i
           onClick={() => {
-            console.log('johann');
             this.audio.paused ? this.audio.play() : this.audio.pause();
             this.forceUpdate();
           }}

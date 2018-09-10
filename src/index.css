@@ -162,6 +162,9 @@ body {
 .players {
     display: flex;
     flex-direction: column;
+    margin-bottom: 2em;
+    margin-right: 5em;
+    margin-left: 5em;
 }
 
 .players li {
@@ -192,10 +195,10 @@ body {
 
 .fa.fa-volume-up,
 .fa.fa-volume-off {
- position: absolute;
- right: 1em;
- font-size: 3em;
- top: 1em;
+    position: absolute;
+    right: 1em;
+    font-size: 3em;
+    top: 1em;
 }
 
 .players li .timer {
@@ -224,5 +227,58 @@ body {
 .players li.active {
     transform: scale(1.05, 1.05);
     transition: transform .3s ease-out;
-    box-shadow: 0 0 4px 4px orange;
+    box-shadow: 0 0 6px 4px orange;
+}
+
+.gameover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: orange;
+    border: 2px solid black;
+    z-index: 9999;
+    padding: 2em 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.gameover h2 {
+    color: white;
+    font-size: 2em;
+    font-family: Roboto, sans-serif;
+    font-weight: 400;
+    margin-bottom: .5em;
+}
+
+.gameover button {
+    margin: 0 auto;
+    background: #336699;
+    padding: .5em 2em;
+    font-size: 1.5em;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-bottom: 5px solid #114477;
+}
+
+.gameover button:active {
+    border-top: 3px solid transparent;
+    border-bottom-width: 2px;
+}
+
+.resume {
+
+}
+
+.resume:before {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
 }
