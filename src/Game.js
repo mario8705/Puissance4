@@ -120,7 +120,7 @@ class Game extends Component {
                   <Gameover text={`Victoire du joueur ${winner} !`} onClick={() => this.newGame()} />
               )
           }
-          <div className="resume">
+          <div className="resume" style={{display:'none'}}>
             <table>
                 <thead>
                     <tr>
@@ -140,16 +140,18 @@ class Game extends Component {
           </div>
             <h1 className="title2">Puissance 4</h1>
             <div className="game">
-                <Board>
-                    {
-                        board.map((row, i) => (
-                            <Board.Column key={i} onClick={() => this.handleColumnClick(i)} rows={row} />
-                        ))
-                    }
-                </Board>
-                  <img src={logo} className="LOGO" alt="logo" />
-                  <img src={logo} className="LOGO2" alt="logo" />
-                  <PlayerList players={players} active={gameover ? null : active} />
+                <div className="board-wrapper">
+                    <img src={logo} alt="" />
+                    <Board>
+                        {
+                            board.map((row, i) => (
+                                <Board.Column key={i} onClick={() => this.handleColumnClick(i)} rows={row} />
+                            ))
+                        }
+                    </Board>
+                    <img src={logo} alt="logo" />
+                </div>
+                <PlayerList players={players} active={gameover ? null : active} />
             </div>
           </div>
         );

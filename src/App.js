@@ -13,7 +13,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
       <div className="SpeakerOn">
         <i
           onClick={() => {
@@ -28,7 +28,7 @@ class App extends Component {
                     <header className="App-header">
                         <img src={logo} className="App-logo" alt="logo" />
                         <h1 className="App-title">Bienvenue sur Puissance 4</h1>
-                        <div className="TheButttons">
+                        <div className="TheButtons">
                             <button className="ButtonSolo" type="button"><a href="/game">1V1</a></button>
                             <button className="ButtonMulti" type="button"><a href="/game">Multiplayer</a></button>
                         </div>
@@ -45,7 +45,7 @@ class App extends Component {
             )} />
             <Route path="/game" exact component={Game} />
       </Switch>
-      </div>
+      </Fragment>
     );
   }
 }

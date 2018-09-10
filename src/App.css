@@ -67,12 +67,11 @@
   font-family: 'Oswald', sans-serif;
 }
 
-button:hover a {
+.TheButtons button:hover a {
   color: black;
 }
 
-
-.TheButttons {
+.TheButtons {
   margin-top: 5em;
   display: flex;
   justify-content: center;
