@@ -48,21 +48,12 @@ class Game extends Component {
 
     state = {
         board: [
-            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
-            [ 'yellow', 'red', 'yellow', 'red', 'yellow', 'red'],
-            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
-            [ '', '', '', '', '', ''],
-            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
-            [ 'yellow', 'red', 'yellow', 'red', 'yellow', 'red'],
-            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
-
-            /*
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
-            [ '', '', '', '', '', ''], */
+            [ '', '', '', '', '', ''],
         ],
         active: 0,
         gamestate: 'play',
@@ -106,11 +97,11 @@ class Game extends Component {
     handleColumnClick = (col) => {
         const { players } = this.props;
         // TODO clone board ?
-        const { board, active, gameover } = this.state;
+        const { board, active, gamestate } = this.state;
         const cls = players[active].color;
         let i;
 
-        if (gameover) {
+        if (gamestate !== 'play') {
             return;
         }
 
