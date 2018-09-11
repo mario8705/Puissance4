@@ -6,7 +6,7 @@ class PlayerList extends Component {
     static propTypes = {
         players: PropTypes.arrayOf(
             PropTypes.shape({
-                name: PropTypes.string,
+                username: PropTypes.string,
                 color: PropTypes.string,
             })
         ).isRequired,
@@ -19,10 +19,10 @@ class PlayerList extends Component {
         return (
             <ul className="players">
                 {
-                    players.map(({ name, color }, id) => (
-                        <li className={cx({ 'active': (active === id) })}>
+                    players.map(({ username, color }, id) => (
+                        <li key={id} className={cx({ 'active': (active === id) })}>
                             <span style={{ background: color }} />
-                            <h2>{name}</h2>
+                            <h2>{username}</h2>
                             <div className="timer" />
                         </li>
                     ))

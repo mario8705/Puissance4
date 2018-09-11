@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Board from './Board';
 import PlayerList from './PlayerList';
+import Gameover from './Gameover';
 import map from 'lodash/map';
 import set from 'lodash/set';
 import merge from 'lodash/merge';
@@ -11,6 +12,9 @@ import io from './socket';
 const STATE_BADNAME = 1;
 const STATE_SEARCHING = 2;
 const STATE_PLAY = 3;
+const STATE_PLAYERTURN = 4;
+const STATE_BOARDUPDATE = 5;
+const STATE_GAMEOVER = 6;
 
 class SearchingPanel extends Component {
     state = {
@@ -51,6 +55,22 @@ class Multiplayer extends Component {
         serverState: 0,
         connectionLost: false,
         board: [],
+        players: [],
+        currentTurn: null,
+    }
+
+    getPlayerOwnColor() {
+        const self = this.findSelf();
+
+        if (self) {
+            return self.color;
+        }
+
+        return null;
+    }
+
+    findSelf() {
+        return this.state.players.find(p => p.username === this.state.username);
     }
 
     componentDidMount() {
@@ -60,14 +80,66 @@ class Multiplayer extends Component {
         // io.on('connect', () => this.setState({ connectionLost: false }));
     }
 
-    handleStateChange = ({ id, initialBoard }) => {
-        this.setState({ serverState: id });
-
+    handleStateChange = ({ id, initialBoard, players, currentTurn, board, winner }) => {
         if (id === STATE_PLAY) {
             this.setState({
                 board: initialBoard,
+                players,
+                currentTurn,
+            });
+        } else if (id === STATE_PLAYERTURN) {
+            this.setState({ currentTurn });
+            return; // Don't change the global state, just update the current player's turn
+        }
+        else if (id === STATE_BOARDUPDATE) {
+            this.setState({ board });
+            return; // Keep global state, only update the board
+        } else if (id === STATE_GAMEOVER) {
+            this.setState({
+                winner,
             });
         }
+
+        this.setState({ serverState: id });
+    }
+
+    findColumnTop(column) {
+        const { board } = this.state;
+        let i;
+
+        for (i = board[column].length - 1; i >= 0; --i) {
+            if (!board[column][i]) {
+                break;
+            }
+        }
+
+        return i;
+    }
+
+    handleColumnClick = column => {
+        if (!this.canPlay() || this.state.serverState !== STATE_PLAY) {
+            return;
+        }
+
+        const top = this.findColumnTop(column);
+
+        if (top >= 0) {
+            this.setState(({ board: newBoard }) => {
+                const board = [...newBoard];
+                board[column][top] = this.getPlayerOwnColor();
+                return { board };
+            })
+
+            io.emit('set', {
+                column,
+            });
+        }
+    }
+
+    canPlay() {
+        const { players, username, currentTurn } = this.state;
+
+        return players.findIndex(p => p.username === username) === currentTurn;
     }
 
     handleSubmitUsername = (e) => {
@@ -91,8 +163,12 @@ class Multiplayer extends Component {
         }
     }
 
+    newGame() {
+        
+    }
+
     render() {
-        const { username, invalidUsername, serverState, connectionLost, board } = this.state;
+        const { username, invalidUsername, serverState, connectionLost, board, players, currentTurn, winner } = this.state;
 
         if (serverState === 0 || serverState === STATE_BADNAME) {
             return (
@@ -127,15 +203,35 @@ class Multiplayer extends Component {
         }
 
         if (serverState === STATE_PLAY) {
+            console.log(board);
+
             return (
-                <Board>
-                    {
-                        board.map((column, id) => (
-                            <Board.Column key={id} rows={column} />
-                        ))
-                    }
-                </Board>
+                <div className="game">
+                    <Board>
+                        {
+                            board.map((column, id) => (
+                                <Board.Column key={id} onClick={() => this.handleColumnClick(id)} rows={column} />
+                            ))
+                        }
+                    </Board>
+                    <PlayerList players={players} active={currentTurn} />
+                </div>
             )
+        }
+
+        if (serverState === STATE_GAMEOVER) {
+            let text;
+
+            if (winner === null) {
+                text = 'Égalité';
+            } else {
+                const { username } = players[winner];
+                text = `Victoire du joueur ${username} !`;
+            }
+
+            return (
+                <Gameover text={text} onClick={() => this.newGame()} />
+            );
         }
 
         return null;

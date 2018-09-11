@@ -21,11 +21,11 @@ class Game extends Component {
     static defaultProps = {
         players: [
             {
-                name: 'Jack',
+                username: 'Jack',
                 color: 'red',
             },
             {
-                name: 'Daniels',
+                username: 'Daniels',
                 color: 'yellow',
             },
         ],
