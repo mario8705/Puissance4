@@ -31,6 +31,8 @@ class Game extends Component {
         ],
     }
 
+
+
     newGame() {
         this.setState(({ board: oldBoard }) => {
             const board = oldBoard.map(r =>
@@ -39,32 +41,54 @@ class Game extends Component {
             return {
                 board,
                 active: 0,
-                gameover: false,
+                gamestate: 'play',
             };
         });
     }
 
     state = {
         board: [
+            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
+            [ 'yellow', 'red', 'yellow', 'red', 'yellow', 'red'],
+            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
+            [ '', '', '', '', '', ''],
+            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
+            [ 'yellow', 'red', 'yellow', 'red', 'yellow', 'red'],
+            [ 'red', 'yellow', 'red', 'yellow', 'red', 'yellow'],
+
+            /*
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
             [ '', '', '', '', '', ''],
-            [ '', '', '', '', '', ''],
-            [ '', '', '', '', '', ''],
+            [ '', '', '', '', '', ''], */
         ],
         active: 0,
-        gameover: false,
+        gamestate: 'play',
         winner: ''
     }
 
-    setGameover(winner) {
+    setGameover(winner, draw) {
         this.setState({
-            gameover: true,
+            gamestate: draw ? 'draw' : 'win',
             winner,
         });
         clearTimeout(this.turnTimeout);
+    }
+
+    checkDraw() {
+        let i, j;
+
+        for (i = 0; i < MAX_COLS; ++i) {
+            for (j = 0; j < MAX_ROWS; ++j) {
+                if (!this.state.board[i][j]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     componentWillMount() {
@@ -106,18 +130,22 @@ class Game extends Component {
 
         this.checkWin();
 
+        if (this.checkDraw()) {
+            this.setGameover(null, true);
+        }
+
         this.setPlayerTurn((active + 1) % 2);
     }
 
     render() {
         const { players } = this.props;
-        const { board, active, gameover, winner } = this.state;
+        const { board, active, gamestate, winner } = this.state;
 
         return (
           <div className="GAME">
           {
-              gameover && (
-                  <Gameover text={`Victoire du joueur ${winner} !`} onClick={() => this.newGame()} />
+              (gamestate !== 'play') && (
+                  <Gameover text={(gamestate === 'draw') ? 'Egalité' : `Victoire du joueur ${winner} !`} onClick={() => this.newGame()} />
               )
           }
           <div className="resume" style={{display:'none'}}>
@@ -151,7 +179,7 @@ class Game extends Component {
                     </Board>
                     <img src={logo} alt="logo" />
                 </div>
-                <PlayerList players={players} active={gameover ? null : active} />
+                <PlayerList players={players} active={(gamestate != 'play') ? null : active} />
             </div>
           </div>
         );
