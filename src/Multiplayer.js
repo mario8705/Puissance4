@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import Board from './Board';
+import PlayerList from './PlayerList';
 import map from 'lodash/map';
 import set from 'lodash/set';
 import merge from 'lodash/merge';
 import repeat from 'lodash/repeat';
 import cx from 'classnames';
+import io from './socket';
+
+const STATE_BADNAME = 1;
+const STATE_SEARCHING = 2;
+const STATE_PLAY = 3;
 
 class SearchingPanel extends Component {
     state = {
@@ -41,6 +48,26 @@ class Multiplayer extends Component {
     state = {
         username: null,
         invalidUsername: false,
+        serverState: 0,
+        connectionLost: false,
+        board: [],
+    }
+
+    componentDidMount() {
+        io.on('state', this.handleStateChange);
+        io.on('disconnect', () => alert('Connection lost'));
+        // io.on('disconnect', () => this.setState({ connectionLost: true }));
+        // io.on('connect', () => this.setState({ connectionLost: false }));
+    }
+
+    handleStateChange = ({ id, initialBoard }) => {
+        this.setState({ serverState: id });
+
+        if (id === STATE_PLAY) {
+            this.setState({
+                board: initialBoard,
+            });
+        }
     }
 
     handleSubmitUsername = (e) => {
@@ -56,7 +83,7 @@ class Multiplayer extends Component {
 
         if (username) {
             this.setState({ username, invalidUsername: false });
-            // TODO something, send 'join' msg to server
+            io.emit('join', { username });
         } else {
             this.setState({
                 invalidUsername: true
@@ -65,9 +92,9 @@ class Multiplayer extends Component {
     }
 
     render() {
-        const { username, invalidUsername } = this.state;
+        const { username, invalidUsername, serverState, connectionLost, board } = this.state;
 
-        if (username === null) {
+        if (serverState === 0 || serverState === STATE_BADNAME) {
             return (
                 <form onSubmit={this.handleSubmitUsername}>
                     <div className="panel-fs-wrapper">
@@ -76,8 +103,8 @@ class Multiplayer extends Component {
                             <span className={cx('error', { 'visible': invalidUsername })}>Your username needs to be a least 1 character long.</span>
                             <input type="text" name="username" placeholder="e.g. CATALcraft1" />
                             <div className="btn-group">
-                                <button type="button" onClick={0}>Back</button>
-                                <button type="button">Ok</button>
+                                <button type="button">Back</button>
+                                <button type="submit">Ok</button>
                             </div>
                         </div>
                     </div>
@@ -85,9 +112,33 @@ class Multiplayer extends Component {
             );
         }
 
-        return (
-            <SearchingPanel />
-        );
+        if (serverState === STATE_SEARCHING) {
+            return (
+                <SearchingPanel />
+            );
+        }
+
+        if (connectionLost) {
+            return (
+                <div className="reconnecting">
+                    <h1>Reconnecting...</h1>
+                </div>
+            )
+        }
+
+        if (serverState === STATE_PLAY) {
+            return (
+                <Board>
+                    {
+                        board.map((column, id) => (
+                            <Board.Column key={id} rows={column} />
+                        ))
+                    }
+                </Board>
+            )
+        }
+
+        return null;
     }
 }
 

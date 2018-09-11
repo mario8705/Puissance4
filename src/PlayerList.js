@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 class PlayerList extends Component {
+    static propTypes = {
+        players: PropTypes.arrayOf(
+            PropTypes.shape({
+                name: PropTypes.string,
+                color: PropTypes.string,
+            })
+        ).isRequired,
+        // active
+    }
+
     render() {
         const { players, active } = this.props;
 
