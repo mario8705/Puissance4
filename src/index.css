@@ -235,6 +235,9 @@ body {
 
 .gameover button {
     margin: 0 auto;
+}
+
+.gameover button, .btn, .btn-group button {
     background: #336699;
     padding: .5em 2em;
     font-size: 1.5em;
@@ -244,21 +247,78 @@ body {
     border-bottom: 5px solid #114477;
 }
 
-.gameover button:active {
+.gameover button:active, .btn:active, .btn-group button:active {
     border-top: 3px solid transparent;
     border-bottom-width: 2px;
 }
 
-.resume {
+.panel-fs-wrapper {
+    height: 100vh;
+    display: flex;
+}
+
+.choose-username {
+    display: flex;
+    flex-direction: column;
+}
+
+.choose-username .btn-group {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1em;
+    margin: 1em -1em -1em -1em;
+}
+
+.choose-username h1 {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.panel {
+    padding: 1em;
+    background: orange;
+    border: 2px solid black;
+    border-radius: 4px;
+    margin: auto;
+    width: 80%;
+}
+
+.panel h1 {
+    color: white;
+}
+
+.panel input[type=text] {
+    outline: none;
+    border: 2px solid black;
+    padding: .5em;
+    font-size: 1.5em;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.btn-group button:first-child {
+    margin-left: auto;
+}
+
+.btn-group button ~ button {
+    margin-left: .25em;
+}
+
+.error {
+    color: #bb2222;
+    display: inline-block;
+    transition: opacity 1s linear;
+}
+
+.error:not(.visible) {
+    opacity: 0;
+}
+
+.searching {
 
 }
 
-.resume:before {
-    content: '';
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+.searching h1 {
+    margin: 0 auto;
 }
