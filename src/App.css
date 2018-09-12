@@ -1,89 +1,69 @@
-@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
-.App {
-  text-align: center;
+.App-header {
+  background-color: #222;
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 15s linear;
-  height: 50%;
-}
-
-.App-header {
-  background-color: #222;
-  height: 100vh;
-  padding: 20px;
-  color: white;
-}
+  max-height: 45vh;
+  margin: 1em auto;
+ }
 
 .App-title {
   font-size: 3.5em;
-  font-family: 'Oswald', sans-serif;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-.ButtonSolo:not(a) {
-  background: radial-gradient( ellipse at top left, red, green);
-  margin: 0 3em;
-  margin-top: 5vh;
-  text-shadow: 2px 2px 2px black;
-  box-shadow: 1px 1px 5px 2px black;
-  height: 6vh;
-  width: 4vw;
-}
-
-.ButtonMulti:not(a) {
-  background: radial-gradient( ellipse at top left, red, green);
-  margin: 0 3em;
-  margin-top: 5vh;
-  text-shadow: 2px 2px 2px black;
-  box-shadow: 1px 1px 5px 2px black;
-  height: 6vh;
-  width: 6vw;
-}
-
-.ButtonMulti:not(a):hover {
-  background: rgb(235, 52, 38);
-}
-
-.ButtonSolo:not(a):hover {
-  background: rgb(235, 52, 38);
-}
-
-.ButtonSolo , a {
-  font-size: 1em;
-  color: rgb(235, 52, 38);
-  text-decoration: none;
-  font-family: 'Oswald', sans-serif;
-}
-
-.ButtonMulti , a {
-  font-size: 1em;
-  color: rgb(235, 52, 38);
-  text-decoration: none;
-  font-family: 'Oswald', sans-serif;
-}
-
-.TheButtons button:hover a {
-  color: black;
+  line-height: 1.2;
+  text-align: center;
+  margin: .5em 0;
 }
 
 .TheButtons {
-  margin-top: 5em;
   display: flex;
-  justify-content: center;
+  padding: 0 20%;
 }
 
- .fa.fa-volume-up,
- .fa.fa-volume-off {
-  position: absolute;
-  right: 1em;
+.TheButtons a {
+  background: radial-gradient( ellipse at top left, red, green);
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 1px 1px 5px 2px black;
+  padding: .5em 2em;
+  margin: 0 .5em;
+  text-decoration: none;
+  flex: 1;
+  color: rgb(235, 52, 38);
+  min-width: 200px;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.TheButtons a:hover {
+  background: rgb(235, 52, 38);
+  color: black;
+}
+
+@media all and (max-width: 640px) {
+  .TheButtons {
+    padding: 0 10%;
+    flex-direction: column;
+  }
+
+  .TheButtons a {
+    margin: .5em 0;
+  }
+}
+
+.fa.fa-volume-up,
+.fa.fa-volume-off {
+  position: fixed;
+  right: 0;
   font-size: 3em;
-  top: 1em;
+  width: 1em;
+  top: 0;
   z-index: 9999;
+  margin: 1em;
   color: white;
   cursor: pointer;
 }
