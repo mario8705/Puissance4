@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Board from './Board';
 import PlayerList from './PlayerList';
 import Gameover from './Gameover';
@@ -57,6 +57,7 @@ class Multiplayer extends Component {
         board: [],
         players: [],
         currentTurn: null,
+        coinsToHighlight: [],
     }
 
     getPlayerOwnColor() {
@@ -80,7 +81,7 @@ class Multiplayer extends Component {
         // io.on('connect', () => this.setState({ connectionLost: false }));
     }
 
-    handleStateChange = ({ id, initialBoard, players, currentTurn, board, winner }) => {
+    handleStateChange = ({ id, initialBoard, players, currentTurn, board, winner, coinsToHighlight, }) => {
         if (id === STATE_PLAY) {
             this.setState({
                 board: initialBoard,
@@ -97,6 +98,7 @@ class Multiplayer extends Component {
         } else if (id === STATE_GAMEOVER) {
             this.setState({
                 winner,
+                coinsToHighlight,
             });
         }
 
@@ -164,11 +166,11 @@ class Multiplayer extends Component {
     }
 
     newGame() {
-        
+        io.emit('continue');
     }
 
     render() {
-        const { username, invalidUsername, serverState, connectionLost, board, players, currentTurn, winner } = this.state;
+        const { username, invalidUsername, serverState, connectionLost, board, players, currentTurn, winner, coinsToHighlight } = this.state;
 
         if (serverState === 0 || serverState === STATE_BADNAME) {
             return (
@@ -202,11 +204,9 @@ class Multiplayer extends Component {
             )
         }
 
-        if (serverState === STATE_PLAY) {
-            console.log(board);
-
-            return (
-                <div className="game">
+        if (serverState === STATE_PLAY || serverState === STATE_GAMEOVER) {
+            const playElements = (
+                <div className={cx('game', { 'is-darken': (serverState === STATE_GAMEOVER) })}>
                     <Board>
                         {
                             board.map((column, id) => (
@@ -216,22 +216,27 @@ class Multiplayer extends Component {
                     </Board>
                     <PlayerList players={players} active={currentTurn} />
                 </div>
-            )
-        }
+            );
 
-        if (serverState === STATE_GAMEOVER) {
-            let text;
+            if (serverState === STATE_GAMEOVER) {
+                let text;
 
-            if (winner === null) {
-                text = 'Égalité';
-            } else {
-                const { username } = players[winner];
-                text = `Victoire du joueur ${username} !`;
+                if (winner === null) {
+                    text = 'Égalité';
+                } else {
+                    const { username } = players[winner];
+                    text = `Victoire du joueur ${username} !`;
+                }
+
+                return (
+                    <Fragment>
+                        {playElements}
+                        <Gameover text={text} onClick={() => this.newGame()} />
+                    </Fragment>
+                )
             }
 
-            return (
-                <Gameover text={text} onClick={() => this.newGame()} />
-            );
+            return playElements;
         }
 
         return null;
