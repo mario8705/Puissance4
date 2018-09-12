@@ -18,12 +18,31 @@ body {
     font-size: 14px;
 }
 
+.coin {
+  position: absolute;
+
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background: red;
+}
+
+.wrapper svg {
+  position: relative;
+  z-index: 9999;
+}
+
 .title2, h1 {
   font-size: 3.5em;
   font-family: 'Oswald', sans-serif;
   color: white;
   text-align: center;
   margin-bottom: 1em;
+}
+
+.wrapper {
+  display: inline-block;
+  position: relative;
 }
 
 .board-wrapper {
