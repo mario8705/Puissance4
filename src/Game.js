@@ -171,7 +171,7 @@ class Game extends Component {
                     </Board>
                     <img src={logo} alt="logo" />
                 </div>
-                <PlayerList players={players} active={(gamestate != 'play') ? null : active} />
+                <PlayerList players={players} active={(gamestate !== 'play') ? null : active} />
             </div>
           </div>
         );
@@ -183,7 +183,7 @@ class Game extends Component {
 
         for (col = 0; col < MAX_COLS; ++col) {
             for (row = 0; row < MAX_ROWS; ++row) {
-                if (cls = board[col][row]) {
+                if ((cls = board[col][row])) {
                     if (this.checkWinCls(cls, col, row)) {
                         this.setGameover(cls);
                         return;

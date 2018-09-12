@@ -148,8 +148,8 @@ class Multiplayer extends Component {
         const formData = new FormData(e.target);
         e.preventDefault();
 
-        const {username } = merge(...
-            map(
+        const { username } = merge(
+            ...map(
                 [...formData.entries()],
                 ([ name, value ]) => set({}, name, value)
             )
@@ -170,7 +170,7 @@ class Multiplayer extends Component {
     }
 
     render() {
-        const { username, invalidUsername, serverState, connectionLost, board, players, currentTurn, winner, coinsToHighlight } = this.state;
+        const { invalidUsername, serverState, connectionLost, board, players, currentTurn, winner } = this.state;
 
         if (serverState === 0 || serverState === STATE_BADNAME) {
             return (
