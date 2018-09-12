@@ -252,6 +252,19 @@ body {
     border-bottom-width: 2px;
 }
 
+.reconnecting {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    display: flex;
+}
+
+.reconnecting h1 {
+    margin: auto;
+}
+
 .panel-fs-wrapper {
     height: 100vh;
     display: flex;
