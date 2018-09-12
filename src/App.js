@@ -1,9 +1,8 @@
-import React, { Component, Fragment, Provider } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import MainMenu from './MainMenu';
 import Game from './Game';
 import Multiplayer from './Multiplayer';
-import logo from './logo.png';
 import './App.css';
 
 class App extends Component {
@@ -15,17 +14,6 @@ class App extends Component {
     }
 
     render() {
-        const val = {
-            playing: this.audio.playing,
-            setPlaying: playing => {
-                if (playing) {
-                    this.audio.pause();
-                } else {
-                    this.audio.play();
-                }
-            }
-        }
-
         return (
             <Fragment>
                 <div className="SpeakerOn">
