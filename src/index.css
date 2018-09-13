@@ -19,12 +19,6 @@ body {
     font-size: 14px;
 }
 
-@media all and (min-width: 1024px) {
-    body {
-        font-size: 2vw;
-    }
-}
-
 @keyframes spin {
     0% { transform: rotateZ(0deg); }
     100% { transform: rotateZ(360deg); }
@@ -86,17 +80,19 @@ body {
   }
 }
 
-.fa.fa-volume-up,
-.fa.fa-volume-off {
-  position: fixed;
-  right: 0;
-  font-size: 3em;
-  width: 1em;
-  top: 0;
-  z-index: 9999;
-  margin: 1em;
-  color: white;
-  cursor: pointer;
+.volume-control {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    cursor: pointer;
+    color: white;
+    margin: 1em;
+}
+
+.volume-control i {
+    font-size: 3em;
+    width: 1em;
 }
 
 .board-wrapper {
@@ -279,14 +275,6 @@ body {
     to { width: 100%; background: red;  }
 }
 
-.fa.fa-volume-up,
-.fa.fa-volume-off {
-    position: absolute;
-    right: 1em;
-    font-size: 3em;
-    top: 1em;
-}
-
 .players li .timer {
     margin-left: auto;
     width: 80%;
@@ -381,6 +369,8 @@ body {
 .panel-fs-wrapper {
     height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .choose-username {
@@ -400,7 +390,7 @@ body {
 }
 
 @media all and (max-width: 768px) {
-    .panel {
+    .panel.panel-sm-expand {
         position: fixed;
         left: 1em;
         right: 1em;
@@ -408,8 +398,13 @@ body {
         bottom: 1em;
     }
 
-    .panel-footer {
+    .panel-sm-expand .panel-footer {
         margin-top: auto;
+    }
+
+    .panel:not(.panel-sm-expand) {
+        margin-left: 1em;
+        margin-right: 1em;
     }
 }
 
@@ -418,7 +413,7 @@ body {
     background: orange;
     border: 2px solid black;
     border-radius: 4px;
-    margin: auto;
+    z-index: 9999;
 }
 
 .panel h1 {
@@ -458,6 +453,7 @@ body {
 .searching {
     display: flex;
     align-items: center;
+    justify-content: center;
     color: white;
 }
 
@@ -479,4 +475,20 @@ body {
   border: .5em solid #fff;
   border-color: currentColor transparent currentColor transparent;
   animation: spin 1.2s linear infinite;
+}
+
+
+@media all and (min-width: 1024px) {
+    body {
+        font-size: 2vw;
+    }
+
+    .column span {
+        width: 3vw;
+        height: 3vw;
+    }
+
+    .players {
+        font-size: .8em;
+    }
 }

@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import MainMenu from './MainMenu';
 import Game from './Game';
 import Multiplayer from './Multiplayer';
+import VolumeControlSwitch from './VolumeControlSwitch';
 
 class App extends Component {
     componentWillMount() {
@@ -15,15 +16,15 @@ class App extends Component {
     render() {
         return (
             <Fragment>
-                <div className="SpeakerOn">
-                    <i
-                        onClick={() => {
-                            this.audio.paused ? this.audio.play() : this.audio.pause();
-                            this.forceUpdate();
-                        }}
-                        className={'fa ' + (this.audio.paused ? 'fa-volume-off' : 'fa-volume-up')} />
-                </div>
+                <VolumeControlSwitch isPlaying={this.audio.paused} onClick={() => {
+                    if (this.audio.paused) {
+                        this.audio.play();
+                    } else {
+                        this.audio.pause();
+                    }
 
+                    this.forceUpdate();
+                }} />
                 <Switch>
                     <Route path="/" exact component={MainMenu} />
                     <Route path="/game" exact component={Game} />

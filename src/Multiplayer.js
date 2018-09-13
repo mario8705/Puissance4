@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import Board from './Board';
 import PlayerList from './PlayerList';
 import Gameover from './Gameover';
 import map from 'lodash/map';
 import set from 'lodash/set';
+import find from 'lodash/find';
 import merge from 'lodash/merge';
-import repeat from 'lodash/repeat';
 import cx from 'classnames';
 import io from './socket';
 
@@ -52,7 +53,7 @@ class Multiplayer extends Component {
     }
 
     findSelf() {
-        return this.state.players.find(p => p.username === this.state.username);
+        return find(this.state.players, p => p.username === this.state.username);
     }
 
     componentDidMount() {
@@ -157,13 +158,15 @@ class Multiplayer extends Component {
             return (
                 <form onSubmit={this.handleSubmitUsername}>
                     <div className="panel-fs-wrapper">
-                        <div className="panel choose-username">
+                        <div className="panel choose-username ">
                             <h1>Username</h1>
                             <span className={cx('error', { 'visible': invalidUsername })}>Your username needs to be a least 1 character long.</span>
                             <input type="text" name="username" placeholder="e.g. CATALcraft1" />
                             <footer className="panel-footer">
                                 <div className="btn-group">
-                                    <button type="button">Back</button>
+                                    <Route render={({ history }) => (
+                                        <button type="button" onClick={() => history.push('/')}>Back</button>
+                                    )} />
                                     <button type="submit">Ok</button>
                                 </div>
                             </footer>
@@ -190,6 +193,8 @@ class Multiplayer extends Component {
         if (serverState === STATE_PLAY || serverState === STATE_GAMEOVER) {
             const playElements = (
                 <div className={cx('game', { 'is-darken': (serverState === STATE_GAMEOVER) })}>
+                    <h1 className="title">Puissance 4</h1>
+                    <div className="board-wrapper">
                     <Board>
                         {
                             board.map((column, id) => (
@@ -197,6 +202,7 @@ class Multiplayer extends Component {
                             ))
                         }
                     </Board>
+                    </div>
                     <PlayerList players={players} active={currentTurn} />
                 </div>
             );
