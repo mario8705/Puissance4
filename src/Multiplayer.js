@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { Route } from 'react-router-dom';
 import Board from './Board';
 import PlayerList from './PlayerList';
 import Gameover from './Gameover';
 import map from 'lodash/map';
 import set from 'lodash/set';
+import find from 'lodash/find';
 import merge from 'lodash/merge';
-import repeat from 'lodash/repeat';
 import cx from 'classnames';
 import io from './socket';
 
@@ -17,34 +18,15 @@ const STATE_BOARDUPDATE = 5;
 const STATE_GAMEOVER = 6;
 
 class SearchingPanel extends Component {
-    state = {
-        ticks: 0,
-    }
-
-    componentDidMount() {
-        this.timer = setInterval(this.tick, 400);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
-
     render() {
-        const { ticks } = this.state;
-
         return (
             <div className="panel-fs-wrapper">
                 <div className="panel searching">
-                    <h1>{'Searching for an opponent' + repeat('.', ticks)}</h1>
+                    <div className="lds-dual-ring" />
+                    <h1>Searching for an opponent</h1>
                 </div>
             </div>
         );
-    }
-
-    tick = () => {
-        this.setState(({ ticks }) => ({
-            ticks: (ticks % 3) + 1,
-        }));
     }
 }
 
@@ -71,7 +53,7 @@ class Multiplayer extends Component {
     }
 
     findSelf() {
-        return this.state.players.find(p => p.username === this.state.username);
+        return find(this.state.players, p => p.username === this.state.username);
     }
 
     componentDidMount() {
@@ -176,14 +158,18 @@ class Multiplayer extends Component {
             return (
                 <form onSubmit={this.handleSubmitUsername}>
                     <div className="panel-fs-wrapper">
-                        <div className="panel choose-username">
+                        <div className="panel choose-username ">
                             <h1>Username</h1>
                             <span className={cx('error', { 'visible': invalidUsername })}>Your username needs to be a least 1 character long.</span>
                             <input type="text" name="username" placeholder="e.g. CATALcraft1" />
-                            <div className="btn-group">
-                                <button type="button">Back</button>
-                                <button type="submit">Ok</button>
-                            </div>
+                            <footer className="panel-footer">
+                                <div className="btn-group">
+                                    <Route render={({ history }) => (
+                                        <button type="button" onClick={() => history.push('/')}>Back</button>
+                                    )} />
+                                    <button type="submit">Ok</button>
+                                </div>
+                            </footer>
                         </div>
                     </div>
                 </form>
@@ -207,6 +193,8 @@ class Multiplayer extends Component {
         if (serverState === STATE_PLAY || serverState === STATE_GAMEOVER) {
             const playElements = (
                 <div className={cx('game', { 'is-darken': (serverState === STATE_GAMEOVER) })}>
+                    <h1 className="title">Puissance 4</h1>
+                    <div className="board-wrapper">
                     <Board>
                         {
                             board.map((column, id) => (
@@ -214,6 +202,7 @@ class Multiplayer extends Component {
                             ))
                         }
                     </Board>
+                    </div>
                     <PlayerList players={players} active={currentTurn} />
                 </div>
             );

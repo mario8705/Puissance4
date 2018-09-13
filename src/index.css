@@ -19,6 +19,82 @@ body {
     font-size: 14px;
 }
 
+@keyframes spin {
+    0% { transform: rotateZ(0deg); }
+    100% { transform: rotateZ(360deg); }
+}
+
+.App-header {
+  background-color: #222;
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-logo {
+  animation: spin infinite 15s linear;
+  max-height: 45vh;
+  margin: 1em auto;
+ }
+
+.App-title {
+  font-size: 3.5em;
+  line-height: 1.2;
+  text-align: center;
+  margin: .5em 0;
+}
+
+.TheButtons {
+  display: flex;
+  padding: 0 20%;
+}
+
+.TheButtons a {
+  background: radial-gradient( ellipse at top left, red, green);
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 1px 1px 5px 2px black;
+  padding: .5em 2em;
+  margin: 0 .5em;
+  text-decoration: none;
+  flex: 1;
+  color: rgb(235, 52, 38);
+  min-width: 200px;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.TheButtons a:hover {
+  background: rgb(235, 52, 38);
+  color: black;
+}
+
+@media all and (max-width: 640px) {
+  .TheButtons {
+    padding: 0 10%;
+    flex-direction: column;
+  }
+
+  .TheButtons a {
+    margin: .5em 0;
+  }
+}
+
+.volume-control {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 999;
+    cursor: pointer;
+    color: white;
+    margin: 1em;
+}
+
+.volume-control i {
+    font-size: 3em;
+    width: 1em;
+}
+
 .board-wrapper {
     display: flex;
     justify-content: space-evenly;
@@ -30,6 +106,12 @@ body {
     width: auto;
     animation: App-logo-spin infinite 15s linear;
     display: none; /* TODO */
+}
+
+.title {
+    text-align: center;
+    color: white;
+    margin: .5em 0;
 }
 
 .board {
@@ -193,14 +275,6 @@ body {
     to { width: 100%; background: red;  }
 }
 
-.fa.fa-volume-up,
-.fa.fa-volume-off {
-    position: absolute;
-    right: 1em;
-    font-size: 3em;
-    top: 1em;
-}
-
 .players li .timer {
     margin-left: auto;
     width: 80%;
@@ -295,6 +369,8 @@ body {
 .panel-fs-wrapper {
     height: 100vh;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .choose-username {
@@ -313,13 +389,31 @@ body {
     padding: .25em;
 }
 
+@media all and (max-width: 768px) {
+    .panel.panel-sm-expand {
+        position: fixed;
+        left: 1em;
+        right: 1em;
+        top: 1em;
+        bottom: 1em;
+    }
+
+    .panel-sm-expand .panel-footer {
+        margin-top: auto;
+    }
+
+    .panel:not(.panel-sm-expand) {
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}
+
 .panel {
     padding: 1em;
     background: orange;
     border: 2px solid black;
     border-radius: 4px;
-    margin: auto;
-    width: 80%;
+    z-index: 9999;
 }
 
 .panel h1 {
@@ -357,9 +451,44 @@ body {
 }
 
 .searching {
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
 .searching h1 {
-    margin: 0 auto;
+    margin-left: .5em;
+}
+
+/* https://loading.io/css/ modified for the project */
+.lds-dual-ring {
+  display: inline-block;
+}
+.lds-dual-ring:after {
+  content: '';
+  display: block;
+  width: 4em;
+  height: 4em;
+  margin: 1px;
+  border-radius: 50%;
+  border: .5em solid #fff;
+  border-color: currentColor transparent currentColor transparent;
+  animation: spin 1.2s linear infinite;
+}
+
+
+@media all and (min-width: 1024px) {
+    body {
+        font-size: 2vw;
+    }
+
+    .column span {
+        width: 3vw;
+        height: 3vw;
+    }
+
+    .players {
+        font-size: .8em;
+    }
 }
