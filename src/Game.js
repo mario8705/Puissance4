@@ -158,7 +158,7 @@ class Game extends Component {
                 </tbody>
             </table>
           </div>
-            <h1 className="title2">Puissance 4</h1>
+            <h1 className="title">Puissance 4</h1>
             <div className="game">
                 <div className="board-wrapper">
                     <img src={logo} alt="" />

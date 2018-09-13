@@ -19,6 +19,12 @@ body {
     font-size: 14px;
 }
 
+@media all and (min-width: 1024px) {
+    body {
+        font-size: 2vw;
+    }
+}
+
 .board-wrapper {
     display: flex;
     justify-content: space-evenly;
@@ -30,6 +36,12 @@ body {
     width: auto;
     animation: App-logo-spin infinite 15s linear;
     display: none; /* TODO */
+}
+
+.title {
+    text-align: center;
+    color: white;
+    margin: .5em 0;
 }
 
 .board {
@@ -313,13 +325,26 @@ body {
     padding: .25em;
 }
 
+@media all and (max-width: 768px) {
+    .panel {
+        position: fixed;
+        left: 1em;
+        right: 1em;
+        top: 1em;
+        bottom: 1em;
+    }
+
+    .panel-footer {
+        margin-top: auto;
+    }
+}
+
 .panel {
     padding: 1em;
     background: orange;
     border: 2px solid black;
     border-radius: 4px;
     margin: auto;
-    width: 80%;
 }
 
 .panel h1 {
@@ -357,9 +382,35 @@ body {
 }
 
 .searching {
-
+    display: flex;
+    align-items: center;
+    color: white;
 }
 
 .searching h1 {
-    margin: 0 auto;
+    margin-left: .5em;
+}
+
+/* https://loading.io/css/ modified for the project */
+.lds-dual-ring {
+  display: inline-block;
+}
+.lds-dual-ring:after {
+  content: '';
+  display: block;
+  width: 4em;
+  height: 4em;
+  margin: 1px;
+  border-radius: 50%;
+  border: .5em solid #fff;
+  border-color: currentColor transparent currentColor transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
