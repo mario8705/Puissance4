@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import MainMenu from './MainMenu';
 import Game from './Game';
 import Multiplayer from './Multiplayer';
-import './App.css';
 
 class App extends Component {
     componentWillMount() {
