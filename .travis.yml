@@ -6,6 +6,9 @@ cache:
   - node_modules
 script:
 - npm run build
+addons:
+  ssh_known_hosts:
+    - 91.121.88.71
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_f6439b450e9f_key -iv $encrypted_f6439b450e9f_iv
   -in deploy_rsa.enc -out deploy_rsa -d
@@ -15,6 +18,6 @@ before_deploy:
 deploy:
   provider: script
   slip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build alavaud@ns352897.ip-91-121-88.eu:/usr/share/nginx/html
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build alavaud@91.121.88.71:/usr/share/nginx/html
   on:
     branch: dev
