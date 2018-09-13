@@ -18,6 +18,6 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build alavaud@91.121.88.71:/usr/share/nginx/html
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/* alavaud@91.121.88.71:/usr/share/nginx/html
   on:
     branch: dev
