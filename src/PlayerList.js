@@ -21,8 +21,9 @@ class PlayerList extends Component {
                 {
                     players.map(({ username, color }, id) => (
                         <li key={id} className={cx({ 'active': (active === id) })}>
-                            <span style={{ background: color }} />
-                            <h2>{username}</h2>
+                            <h2 data-title={username}>
+                                <span style={{ background: color }} />
+                            </h2>
                             <div className="timer" />
                         </li>
                     ))

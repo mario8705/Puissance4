@@ -19,15 +19,6 @@ body {
     font-size: 14px;
 }
 
-/*
-.title2, h1 {
-  font-size: 3.5em;
-  font-family: 'Oswald', sans-serif;
-  color: white;
-  text-align: center;
-  margin-bottom: 1em;
-}
-*/
 .board-wrapper {
     display: flex;
     justify-content: space-evenly;
@@ -38,6 +29,7 @@ body {
     height: 400px;
     width: auto;
     animation: App-logo-spin infinite 15s linear;
+    display: none; /* TODO */
 }
 
 .board {
@@ -71,6 +63,21 @@ body {
     background: white;
     position: relative;
     z-index: 1;
+}
+
+@media all and (min-width: 769px) {
+    .column span {
+        width: 4vw;
+        height: 4vw;
+    }
+}
+
+
+@media all and (max-width: 768px) {
+    .column span {
+        width: 7.5vw;
+        height: 7.5vw;
+    }
 }
 
 .column:hover {
@@ -158,13 +165,24 @@ body {
 }
 
 .players li h2 {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+}
+
+.players li h2:after {
+    content: attr(data-title);
+    display: flex;
+    align-items: center;
     font-weight: 300;
+    width: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .players li span {
-    width: 20px;
-    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
     display: inline-block;
     border: 2px solid black;
     margin-right: .5em;
@@ -188,6 +206,7 @@ body {
     width: 80%;
     height: 15px;
     background: #aaa;
+    background: transparent;
 }
 
 .players li .timer:before {
@@ -210,6 +229,12 @@ body {
     transform: scale(1.025, 1.025);
     transition: transform .3s ease-out;
     box-shadow: 0 0 6px 4px orange;
+}
+
+@media all and (max-width: 768px) {
+    .players li .timer {
+
+    }
 }
 
 .gameover {
@@ -285,6 +310,7 @@ body {
 
 .choose-username h1 {
     background: rgba(0, 0, 0, 0.2);
+    padding: .25em;
 }
 
 .panel {
