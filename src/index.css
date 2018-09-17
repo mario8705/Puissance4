@@ -247,19 +247,11 @@ body {
 }
 
 .players li h2 {
-    display: flex;
-    align-items: center;
-}
-
-.players li h2:after {
-    content: attr(data-title);
-    display: flex;
-    align-items: center;
     font-weight: 300;
-    width: 50px;
-    text-overflow: ellipsis;
+    width: 10%;
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .players li span {
@@ -268,6 +260,16 @@ body {
     display: inline-block;
     border: 2px solid black;
     margin-right: .5em;
+}
+
+@media all and (min-width: 768px) {
+    .players li h2 {
+        width: 20%;
+    }
+
+    .players li .timer {
+        width: 60%;
+    }
 }
 
 @keyframes timerPlaceholder {
@@ -280,12 +282,10 @@ body {
     width: 80%;
     height: 15px;
     background: #aaa;
-    background: transparent;
 }
 
 .players li .timer:before {
     content: '';
-    width: var(--time);
     display: block;
     height: 100%;
 }
@@ -476,7 +476,6 @@ body {
   border-color: currentColor transparent currentColor transparent;
   animation: spin 1.2s linear infinite;
 }
-
 
 @media all and (min-width: 1024px) {
     body {
